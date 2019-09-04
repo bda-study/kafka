@@ -43,7 +43,7 @@
 
    -  auto.commit.interval.ms : 주기적으로 오프셋을 커밋하는 시간
 
-   -  fetch.max.wait.ms : fetc.min.bytes 보다 적은 경우, 최대 대기 시간
+   -  fetch.max.wait.ms : fetch.min.bytes 보다 적은 경우, 최대 대기 시간
 
 
 ## 5.2 콘솔 컨슈머
@@ -56,15 +56,15 @@
       --from-beginning
     ```
 
-- 컨슈머 실행시 항상 컨슈머 그룹이 필요. 미설정시 자동 생성
-  - ex) console-consumer-xxxxx(숫자)
-
 - 컨슈머 그룹 확인
      ```bash
      $ bin/kafka-consumer-groups.sh \
        --bootstrap-server kafka01:9092,kafka02:9092,kafka03:9092 \
        --list
      ```
+
+- 컨슈머 실행시 항상 컨슈머 그룹이 필요. 미설정시 자동 생성
+  - ex) console-consumer-xxxxx(숫자)
 
 - 컨슈머 그룹 지정하여, 컨슈머 실행
      ```bash
@@ -106,7 +106,7 @@
     - public ConsumerRecords<K,V> poll(long timeout)
       - 폴링을 계속 유지해야 함. 그렇지 않으면 파티션은 다른 컨슈머에게 전달됨
       - timeout : 데이터가 컨슈머 버퍼에 없을 때, 얼마나 오랫동안 블럭될지 조정
-        - timeout 으로 정해진 시간 동안 대기. 0이면 즉시 리턴.4.
+        - timeout 으로 정해진 시간 동안 대기. 0이면 즉시 리턴.
 
 
 - 파이썬 예제
