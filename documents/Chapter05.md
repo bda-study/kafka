@@ -128,10 +128,11 @@
 - 파티션이 하나인 경우, 메시지 순서 보장. 처리량 저하
 
 - 5.4.1 파티션 3개
+
   | Producer1 | Producer2 | Consumer |
   |:---:|:---:|:---:|
   | > a <br> > b <br> > c <br> > d <br> > e | > 1 <br> > 2 <br> > 3 <br> > 4 <br> > 5 | a<br>d<br>1<br>4<br>b<br>e<br>2<br>5<br>c<br>3 |
-  ||
+  
 
     - 각 파티션별로 데이터 Consume
         ```bash
@@ -144,14 +145,14 @@
         | Consumer for Partition 0 | Partition 1 | Partition 2 |
         |:-:|:-:|:-:|
         | b <br> e <br> 2 <br> 5 | a <br> d <br> 1 <br> 4 | c <br> 3 <br> &nbsp; <br> &nbsp;|
-        ||
+        
 
 - 5.4.2 파티션 1개
 
   | Producer1 | Producer2 | Consumer |
   |:---:|:---:|:---:|
   | > a <br> > b <br> > c <br> > d <br> > e | > 1 <br> > 2 <br> > 3 <br> > 4 <br> > 5 | a<br>b<br>c<br>d<br>e<br>1<br>2<br>3<br>4<br>5 |
-  ||
+  
 
     - 각 파티션별로 데이터 Consume
         ```bash
@@ -162,9 +163,9 @@
           --from-beginning
         ```
         | Consumer for Partition0 |
-        |:-:|:-:|:-:|
-        | b <br> e <br> 2 <br> 5 | a <br> d <br> 1 <br> 4 | c <br> 3 <br> &nbsp; <br> &nbsp;|
-        ||
+        |:-:|
+        | a <br> b <br> c <br> d <br> e <br> 1 <br> 2 <br> 3 <br> 4 <br> 5 |
+        
 
 ## 5.5 컨슈머 그룹
 
