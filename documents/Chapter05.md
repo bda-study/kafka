@@ -165,13 +165,15 @@
         | Consumer for Partition0 |
         |:-:|
         | a <br> b <br> c <br> d <br> e <br> 1 <br> 2 <br> 3 <br> 4 <br> 5 |
-        
 
 ## 5.5 컨슈머 그룹
 
 - 컨슈머 그룹 : 하나의 토픽에 여러 컨슈머 그룹이 동시에 접속해 메시지를 가져갈 수 있다.
 - 파티션은 여러 컨슈머 그룹에 데이터 전달 가능
 - 파티션은 한 컨슈머 그룹 안에서는 단 하나의 컨슈머에 데이터 제공
+  ![](https://www.oreilly.com/library/view/kafka-the-definitive/9781491936153/assets/ktdg_04in01.png)
+  ![](https://www.oreilly.com/library/view/kafka-the-definitive/9781491936153/assets/ktdg_04in03.png)
+  ![](https://www.oreilly.com/library/view/kafka-the-definitive/9781491936153/assets/ktdg_04in04.png)
   
 - 데이터 생산량 > 데이터 소비량
   - 컨슈머 확장 필요
