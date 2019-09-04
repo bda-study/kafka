@@ -92,13 +92,13 @@
             KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
             consumer.subscribe(Arrays.asList("peter-topic"));
             try {
-            while (true) {
+              while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(100);
                 for (ConsumerRecord<String, String> record : records)
                 System.out.printf("Topic: %s, Partition: %s, Offset: %d, Key: %s, Value: %s\n", record.topic(), record.partition(), record.offset(), record.key(), record.value());
-            }
+              }
             } finally {
-            consumer.close();
+              consumer.close();
             }
         }
     }
@@ -216,16 +216,16 @@
             KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
             consumer.subscribe(Arrays.asList("peter-topic"));
             while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-            {
+              ConsumerRecords<String, String> records = consumer.poll(100);
+              for (ConsumerRecord<String, String> record : records)
+              {
                 System.out.printf("Topic: %s, Partition: %s, Offset: %d, Key: %s, Value: %s\n", record.topic(), record.partition(), record.offset(), record.key(), record.value());
-            }
-            try {
+              }
+              try {
                 consumer.commitSync();
-            } catch (CommitFailedException e) {
+              } catch (CommitFailedException e) {
                 System.out.printf("commit failed", e);
-            }
+              }
             }
         }
     }
@@ -254,16 +254,16 @@
         TopicPartition partition1 = new TopicPartition(topic, 1);
         consumer.assign(Arrays.asList(partition0, partition1));
         while (true) {
-        ConsumerRecords<String, String> records = consumer.poll(100);
-        for (ConsumerRecord<String, String> record : records)
-        {
+          ConsumerRecords<String, String> records = consumer.poll(100);
+          for (ConsumerRecord<String, String> record : records)
+          {
             System.out.printf("Topic: %s, Partition: %s, Offset: %d, Key: %s, Value: %s\n", record.topic(), record.partition(), record.offset(), record.key(), record.value());
-        }
-        try {
+          }
+          try {
             consumer.commitSync();
-        } catch (CommitFailedException e) {
+          } catch (CommitFailedException e) {
             System.out.printf("commit failed", e);
-        }
+          }
         }
     }
     }
