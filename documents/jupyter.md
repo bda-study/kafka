@@ -10,5 +10,8 @@
 * 4장 카프카 프로듀서
   - https://nbviewer.jupyter.org/gist/SDRLurker/2433c2541ad785082e494893dcb87379
 
-* 4장 카프카 컨슈머
+* 5장 카프카 컨슈머
   - https://nbviewer.jupyter.org/gist/SDRLurker/5ce60394454bb138ee2c45aa603f58e5
+  
+* 6장 카프카 운영 가이드
+  - https://nbviewer.jupyter.org/gist/SDRLurker/db12fad82721f86e5a5fdb094e7894cc
