@@ -15,3 +15,6 @@
   
 * 6장 카프카 운영 가이드
   - https://nbviewer.jupyter.org/gist/SDRLurker/db12fad82721f86e5a5fdb094e7894cc
+  
+* 7장 카프카를 활용한 데이터 파이프라인 구축
+  - https://nbviewer.jupyter.org/gist/SDRLurker/b4e8139135834bdbbe0eab893b11f9f7
