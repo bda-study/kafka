@@ -1,0 +1,20 @@
+filebeat:
+  inputs:
+  - type: log
+    paths:
+      - /data/weblogs.log
+  config:
+    modules:
+      path: ${path.config}/modules.d/*.yml
+      reload.enabled: false
+
+output:
+  kafka:
+    hosts: ['kafka:29092']
+    topic: 'weblogs'
+    partition:
+      round_robin:
+        reachable_only: false
+    required_acks: 1
+    compression: gzip
+    max_message_bytes: 1000000
