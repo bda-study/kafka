@@ -33,15 +33,15 @@ kafka is best
 * 코드 전체를 실행
 
 ```shell
-streams.examples$ mvn clean package
-streams.examples$ mvn exec:java -Dexec.mainClass=myapps.LineSplit
+Chapter08/streams.examples$ mvn clean package
+Chapter08/streams.examples$ mvn exec:java -Dexec.mainClass=myapps.LineSplit
 ```
 
 
 * streams-plaintext-input으로 입력을 보냄.
 
 ```shell
-$ KAFKA/bin/kafka-consoleoducer.sh --broker-list localhost:9092 --topic streams-plaintext-input
+$ $KAFKA/bin/kafka-consoleoducer.sh --broker-list localhost:9092 --topic streams-plaintext-input
 >apple is good
 >kafka is good
 >happy kafka and apple
@@ -50,7 +50,7 @@ $ KAFKA/bin/kafka-consoleoducer.sh --broker-list localhost:9092 --topic streams-
 * consumer 쪽에서 메시지 확인
 
 ```shell
-~/kafka/exercises/Chapter08$ ./sink.sh streams-linesplit-output
+Chapter08$ ./sink.sh streams-linesplit-output
 apple 
 is 
 good
@@ -68,8 +68,8 @@ apple
 
 * 코드 전체를 실행
 ```shell
-~/streams.examples$ mvn clean package
-~/streams.examples$ mvn exec:java -Dexec.mainClass=myapps.WordCount
+Chapter08/streams.examples$ mvn clean package
+Chapter08/streams.examples$ mvn exec:java -Dexec.mainClass=myapps.WordCount
 ```
 
 * console-producer 실행
@@ -86,7 +86,7 @@ $ $KAFKA/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic stre
 * console-consumer 결과 확인
 
 ```shell
-kafka/exercises/Chapter08$ ./sink_cnt.sh
+Chapter08$ ./sink_cnt.sh
 andrew  2
 apple   2
 good    3
