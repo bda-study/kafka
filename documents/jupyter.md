@@ -18,3 +18,6 @@
   
 * 7장 카프카를 활용한 데이터 파이프라인 구축
   - https://nbviewer.jupyter.org/gist/SDRLurker/b4e8139135834bdbbe0eab893b11f9f7
+
+* 8장 카프카 스트림즈 API
+  - https://nbviewer.jupyter.org/gist/SDRLurker/dc8d8c0b760ed95ef584e4815e56499f
