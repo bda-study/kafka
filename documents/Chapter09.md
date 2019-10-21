@@ -1,4 +1,4 @@
-# KSQL
+# Chapter 09. KSQL
 
 - 일반적인 빅데이터 플랫폼에서...
   - 단기간 처리는 스트리밍 플랫폼으로 하고
@@ -13,7 +13,7 @@
     - 카프카는 특정 큐로 데이터 들어왔을 때 정해진 툴을 적용하는 "큐 라우팅" 기능이 약함
 
 - 카카오 케미 (KEMI STATS)
-    - !(카카오 케미)[]
+    - ![카카오 케미](https://tech.kakao.com/files/kemi-stats.jpg)
     - KEMI : 알림 STATS, 로그 LOG
     - KEMI STATS : POLLING 방식, PUSH 방식
     - KEMI STATS POLLING (1분 주기)
@@ -25,7 +25,7 @@
             - 연산이 필요한 것 (DISK usage 등)은 삼자를 통해 가공해서 카프카에 등록
 
     - 람다 아키텍처
-        - ![카프카 람다 아키텍처]()
+        - ![카프카 람다 아키텍처](https://3.bp.blogspot.com/-2FkpcBZrCQQ/WEkE1vZonmI/AAAAAAAAADw/Do4cCH3NcmkULhJdr1ZUchnjgIeAOqbSwCLcB/s1600/%25EB%259E%258C%25EB%258B%25A4%2B%25EC%2595%2584%25ED%2582%25A4%25ED%2585%258D%25EC%25B2%2598.PNG)
         - 데이터를  처리해서 기간과 용량에 따라 별도의 저장소를 가져가는 방식
         - 장점
             - 적절한 기술을 조합해서 쉽게 구축 가능
@@ -40,7 +40,9 @@
 ### 9.2 KSQL과 카파 아키텍처
 
 -카파 아키텍처
-    - ![카프카 카파 아키텍처]()
+
+  ![카프카 카파 아키텍처](https://1.bp.blogspot.com/-g6Ox9oXNZtA/WEkJSWvnOYI/AAAAAAAAAEY/4OobQTWa7SYqc6_HDjC8dp_5rEMxz1hPACEw/s1600/%25EC%25B9%25B4%25ED%258C%258C%25EC%2595%2584%25ED%2582%25A4%25ED%2585%258D%25EC%25B2%2598.PNG)
+
     - 크기나 기간에 관계없이 하나의 계산 프로그램 사용
     - 장기 데이터 따로 저장하지 않고 장기 데이터 조회가 필요한 경우 그때그때 계한하여 전달
     - 람다 아키텍처와의 비교
