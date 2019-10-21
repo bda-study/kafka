@@ -1,10 +1,12 @@
+# KSQL
+
 - 일반적인 빅데이터 플랫폼에서...
   - 단기간 처리는 스트리밍 플랫폼으로 하고
   - 장기 데이터는 별도의 장기 저장소와 별도의 배치 처리 시스템을 사용
 
 - KSQL 을 사용하여 저장 기간에 관계 없이 스트리밍과 배치 처리 동시 가능
 
-9.1 KSQL 등장 배경
+### 9.1 KSQL 등장 배경
 
 - 보통, 카프카를 데이터 버스로 사용하고, 데이터 가공해서 다른 곳에 저장
     - 카멜, 스톰, 스파크 스트리밍, 삼자 등을 활용
@@ -35,7 +37,7 @@
          => 간단한 계산, 필터링은 카프카에서 수행, 장/단기 구분 없이 동일한 사용 원함 : 카파 아키텍처 등장
 
 
-9.2 KSQL과 카파 아키텍처
+### 9.2 KSQL과 카파 아키텍처
 
 -카파 아키텍처
     - ![카프카 카파 아키텍처]()
@@ -49,7 +51,7 @@
     - 저장 기간에 관계없이 통합하게 하면? => KSQL
     
 
-KSQL 아키텍처
+### 9.3 KSQL 아키텍처
 
     ![KSQL architecture]()
 
@@ -63,4 +65,125 @@ KSQL 아키텍처
 
 - KSQL 서버
     - 쿼리 실행 절차
-        -
+        - 쿼리 -> 쿼리 재작성 -> 논리 계획 작성 -> 물리 계획 작성 -> 쿼리 실행 -> 스토리지
+    - 메타 정보 관리 방식
+      - 계획 작성시 필요한 테이블 메타 정보는 KSQL 서버의 메모리에 존재
+      - 필요한 경우 ksql__commands 라는 토픽에 저장
+      - KSQL 서버 추가시 토픽 활용하여 메모리에 저장
+    - 엔진 소스 상의 메타정보 초기화
+      - 정해진 토픽에 메타 정보 저장 가능하게 하는 **메타 스토어** 초기화
+      - 메타 스토어에 **DDL** 정보 저장할 수 있게 초기화 작업 수행
+      - 쿼리 명령어 수행시 사용할 **엔진** 객체 초기화
+      - **영구 쿼리** (명시적으로 종료하지 않으면 계속 실행) 등록위한 해시맵 초기화
+      - **라이브 쿼리** (한번 수행 후 종료) 등록위한 해시맵 초기화
+      - **KSQL 함수** 등록위한 해시맵 초기화
+
+- KSQL 클라이언트
+    - SQL문을 KSQL 서버에 전달하고, 결과 받는 툴
+    - DDL, DML 지원
+    - 스트림, 테이블 지원
+      - 스트림 : 계속 기록, 변경 불가
+      - 테이블 : 현재 상태, 변경 가능
+    - 스트림테이블 생성
+      - 지원 타입 : BOOLEAN, INTEGER, BIGINT, DOUBLE, VARHAR, 배열형, 해시형
+      - 프로퍼티
+        - KAFKA_TOPIC (필수) : 테이블에서 사용할 토픽
+        - VALUE_FORMAT (필수) : 데이터 포맷, JSON과 DELIMETED만 지원
+        - TIMESTAMP : 토픽의 시간 값 (timestamp)를 KSQL 컬럼과 연결. 윈도우 처리시 사용
+      - 예시
+        ```bash
+        CREATE STREAM/TABLE pageviews (viewtime BIGINT, user_id VARCHAR, page_id VARCHAR)
+        WITH (VALUE_FORMAT='JSON', KAFKA_TOPIC='my-topic')
+        ...
+        ```
+        - 테이블도 생성 방식은 유사함
+      - 지속적 입력 예시
+        ```bash
+        CREATE STREAM/TABLE pageviews (viewtime BIGINT, user_id VARCHAR, page_id VARCHAR)
+        WITH (VALUE_FORMAT='JSON', KAFKA_TOPIC='my-topic')
+        AS SELECT * FROM PAGEVIEWS
+        PARTITION BY SITE_ID
+        ```
+        - 쿼리 결과활용시 프로퍼티에 PARTITIONS, REPLICATIONS 지정 가능
+
+
+### 9.4 도커 이용한 KSQL 클러스터 설치
+
+- 예제 실행 방법
+    - KSQL 0.5.x 활용 예시
+        ```bash
+        $ git clone -b 0.5.x --single-branch https://github.com/confluentinc/ksql.git
+        $ cd ksql/docs/quickstart
+        $ docker-compose up -d --build
+        ```
+
+    - Confluent Platform 활용 예시
+        ```bash
+        $ git clone -b 5.3.1-post --single-branch https://github.com/confluentinc/examples
+        $ cd cp-all-in-one
+        $ docker-compose up -d --build
+        ```
+- KSQL docker-compose.yaml
+  - KSQL 예제를 위해서는 zookeeper, kafka, schema-registry 총 3개 서비스 필요
+  - kafka에 zookeeper를 depends_on으로 처리 가능
+  - schema-registry 서비스는 AVRO(경량 RPC의 일종)의 스키마를 저장하고 가져가는 역할 SQL 스키마는 카프카 직접 저장
+
+- 컨테이너 실행
+    ```bash
+    $ docker-compose up -d
+    ...
+    ```
+    - docker-compose 파일에서 실행한 순서대로 실행 (주키퍼 -> 카프카 -> 스키마 레지스트리)
+
+- 컨테이너 확인
+    ```bash
+    $ docker-compose ps
+    ...
+    $ docker-compose exec ksql-cli hostname
+    ksql-cli
+    ```
+
+- KSQL 시행
+    ```bash
+    $ docker-compose exec ksql-cli ksql-cli local --bootstrap-server kafka:29092
+    ...
+    ksql> _
+    ```
+    - local 옵션을 통해 로컬에서 세션 생성
+
+
+### 9.5 KSQL을 이용한 스트림 분석
+
+- 예제 개요
+  1. 데이터 생성기 2개
+  2. 2개, 각각 토픽 1개씩
+  3. 각각 스트림 1개, 테이블 1개
+  4. 조합해서 스트립 2개, 테이블 1개
+  5. 3개, 각각 토픽 1개씩
+
+- 데이터 생성
+  - 컨테이너 ksql-datagen-pageviews : pageviews 토픽 생성
+  - 컨테이너 ksql-datagen-users : users 토픽 생성
+    ```bash
+    $ docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:32181
+    __consumer_offsets
+    _confluent-metrics
+    _schemas
+    ksql__commands
+    pageviews
+    users
+    ```
+
+- 스트림과 테이블 생성
+  - 스트림 생성 (p.360)
+    ```bash
+    ksql> CREATE STREAM pageviews_original \
+        > ... \
+        > WITH (kafka_topic='pageviews', ...;
+    Message
+    --------------
+    Stream created
+    --------------
+
+    ksql> des
+    ```
