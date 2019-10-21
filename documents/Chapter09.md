@@ -185,5 +185,65 @@
     Stream created
     --------------
 
-    ksql> des
+    ksql> describe pageviews_original;
+    ...
     ```
+
+  - 테이블 생성 (p.361)
+    ```bash
+    ksql> CREATE TABLE users_original \
+        > ... \
+        > WITH (kafka_topic='users', ..., key='userid'); // 오류나서 key추가
+    ...
+    ```
+    - 오류 발생해서 key 추가해서 실행함
+    ```bash
+    Cannot define a TABLE without providing the KEY column name in the WITH clause
+    ```
+
+- 쿼리를 이용한 스트림과 테이블 생성
+  - 스트림 생성 (p.362)
+  ```bash
+  ksql> CREATE STREAM pageviews_female AS \
+        > SELECT *  ...;
+  Message
+  --------------------------
+  Stream created and running
+  --------------------------
+  
+  ksql> select * from pageviews_female; // 영구적 쿼리. 계속 조회됨.
+  ...
+
+  $ docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:32181
+  PAGEVIEWS_FEMALE
+  ...
+  ksql_query_CSAS_PAGEVIEWS_FEMALE-KSTREAM-MAPVLAUES-...-repartitions
+  ksql_query_CSAS_PAGEVIEWS_FEMALE-KSTREAM-REDUCE-STATE-STORE-...-changelog
+  ...
+
+  ```
+
+- 스트림 생성 (p.364)
+  ```bash
+    ksql> CREATE TABLE pageviews_female_like_89 \
+        > WITH (kafka_topic='pageviews_enriched_r8_r9', ... \
+    ...
+    
+    $ docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:32181
+    ...
+    pageviews_enriched_r8_r9
+    ...
+  ```
+
+- 테이블 생성 (p.366)
+  ```bash
+  ksql> CREATE TABLE pageviews_regions AS \
+      > SELECT ... \
+      > WINDOW TUMBLING (size 30 second) \ // 30초 데이터를 모아서 처리
+      > ...;
+   
+  $ docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:32181
+    ...
+    PAGEVIEWS_REGIONS
+    ...
+  ```
