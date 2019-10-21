@@ -25,7 +25,7 @@
             - 연산이 필요한 것 (DISK usage 등)은 삼자를 통해 가공해서 카프카에 등록
 
     - 람다 아키텍처
-        - ![카프카 람다 아키텍처](https://3.bp.blogspot.com/-2FkpcBZrCQQ/WEkE1vZonmI/AAAAAAAAADw/Do4cCH3NcmkULhJdr1ZUchnjgIeAOqbSwCLcB/s1600/%25EB%259E%258C%25EB%258B%25A4%2B%25EC%2595%2584%25ED%2582%25A4%25ED%2585%258D%25EC%25B2%2598.PNG)
+        ![카프카 람다 아키텍처](https://3.bp.blogspot.com/-2FkpcBZrCQQ/WEkE1vZonmI/AAAAAAAAADw/Do4cCH3NcmkULhJdr1ZUchnjgIeAOqbSwCLcB/s1600/%25EB%259E%258C%25EB%258B%25A4%2B%25EC%2595%2584%25ED%2582%25A4%25ED%2585%258D%25EC%25B2%2598.PNG)
         - 데이터를  처리해서 기간과 용량에 따라 별도의 저장소를 가져가는 방식
         - 장점
             - 적절한 기술을 조합해서 쉽게 구축 가능
@@ -55,7 +55,7 @@
 
 ### 9.3 KSQL 아키텍처
 
-    ![KSQL architecture]()
+![KSQL architecture](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjzMqNs-uymjs88N_T56kCdbS7AgvVhtSaCVs_rlT-MC922cwM5w)
 
 - 구성
     - KSQL 서버
