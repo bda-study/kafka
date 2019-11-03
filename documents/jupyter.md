@@ -24,3 +24,6 @@
   
 * 9장 카프카 SQL을 이용한 스트리밍 처리
   - https://nbviewer.jupyter.org/gist/SDRLurker/33d19225bc3c9076227a94cace17308f
+  
+* 10장 그 밖의 클라우드 기반 메시징 서비스
+  - https://nbviewer.jupyter.org/gist/SDRLurker/7dd19ec8410f2355c0551b17076c473b
