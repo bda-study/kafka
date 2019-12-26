@@ -11,7 +11,7 @@ filebeat:
 output:
   kafka:
     hosts: ['kafka:29092']
-    topic: 'weblogs'
+    topic: 'filebeats-weblogs'
     partition:
       round_robin:
         reachable_only: false

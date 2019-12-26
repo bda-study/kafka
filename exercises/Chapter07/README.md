@@ -11,6 +11,7 @@ Filebeat, Kafka, Nifi를 docker-compose로 구성하여 실습해보는 것이 �
 ## How to Run
 
 ```bash
+touch weblogs.log
 docker-compose up -d
 ```
 
@@ -30,15 +31,15 @@ while true; do docker run -it --rm mingrammer/flog:0.3.2 -n 10 >> weblogs.log; s
 3. Properties 변경
 
     - Kafka Brokers: kafka:29092
-    - Topic Name(s): weblogs
-    - Group ID: weblogs-consumer-group
+    - Topic Name(s): filebeats-weblogs
+    - Group ID: filebeats-weblogs-consumer
 
 4. Publish processor 추가 (Processor 드래그 > Filter에 kafka 검색 > PublishKafka 선택 후 ADD 클릭)
 
 5. Properties 변경
 
     - Kafka Brokers: kafka:29092
-    - Topic Name: weblogs-reproduced
+    - Topic Name: filebeats-weblogs-reproduced
 
 6. Consume/Publish processor 시작하기
 
@@ -55,5 +56,5 @@ while true; do docker run -it --rm mingrammer/flog:0.3.2 -n 10 >> weblogs.log; s
     ```bash
     kafka-console-consumer \
     --bootstrap-server localhost:9092 \
-    --topic weblogs-reproduced
+    --topic filebeats-weblogs-reproduced
     ```
