@@ -18,7 +18,7 @@ docker-compose up -d
 
 ```bash
 # sleep으로 간격 조정
-while true; do ./script/generate.sh; sleep 5; done
+while true; do docker run -it --rm mingrammer/flog:0.3.2 -n 10 >> weblogs.log; sleep 1; done
 ```
 
 ### Nifi에서 weblogs 데이터 kafka로 reproduce하기

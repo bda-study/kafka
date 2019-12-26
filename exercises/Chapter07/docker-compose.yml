@@ -4,19 +4,19 @@ services:
   filebeat:
     image: docker.elastic.co/beats/filebeat:7.4.0
     volumes:
-      - ./data:/data
+      - ./weblogs.log:/data/weblogs.log
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
     depends_on:
       - kafka
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:5.3.2
     ports:
       - 2181:2181
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:5.3.2
     depends_on:
     - zookeeper
     ports:
@@ -34,11 +34,3 @@ services:
       - 8080:8080
       - 8081:8081
       - 8443:8443
-  # elasticsearch:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
-  #   ports:
-  #     - 9200:9200
-  # kibana:
-  #   image: docker.elastic.co/kibana/kibana:7.4.0
-  #   ports:
-  #     - 5601:5601
